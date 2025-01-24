@@ -15,5 +15,5 @@ services:
             - INSPAND-DOCKER-NETWORK
         
 networks: 
-    SAT-DOCKER-NETWORK:
+    INSPAND-DOCKER-NETWORK:
         driver: bridge
