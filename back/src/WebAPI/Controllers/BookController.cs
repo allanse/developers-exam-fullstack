@@ -12,9 +12,9 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class BookControllerr : ControllerBase
 {
-    private readonly BooksService _bookService;
+    private readonly BookService _bookService;
 
-    public BookControllerr(BooksService bookService)
+    public BookControllerr(BookService bookService)
     {
         _bookService = bookService;
     }
@@ -36,7 +36,7 @@ public class BookControllerr : ControllerBase
         if (request == null)
             return BadRequest("Livro não pode ser nulo.");
 
-        var book = new Books(request.Title, request.Author, request.Description);
+        var book = new Book(request.Title, request.Author, request.Description);
 
         ValidationResult result = await _bookService.InsertAsync(book);
 
@@ -44,5 +44,29 @@ public class BookControllerr : ControllerBase
             return BadRequest(result.Errors);
 
         return Ok("Livro criado com sucesso.");
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    public async Task<IActionResult> Put([FromRoute] long id,
+                                         [FromBody] UpdateBookRequest request)
+    {
+        if (request == null)
+            return BadRequest("Livro não pode ser nulo.");
+
+        var book = await _bookService.GetByIdAsync(id);
+        if (book == null)
+            return BadRequest("Livro não encontrado.");
+
+        book.SetTitle(request.Title);
+        book.SetAuthor(request.Author);
+        book.SetDescription(request.Description);
+
+        ValidationResult result = await _bookService.UpdateAsync(book);
+        
+        if (!result.IsValid)
+            return BadRequest(result.Errors);
+
+        return Ok("Livro atualizado com sucesso.");
     }
 }

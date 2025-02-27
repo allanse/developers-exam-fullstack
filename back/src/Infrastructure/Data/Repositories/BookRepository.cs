@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
-    internal class BooksRepository : Repository<Books>, IBookRepository
+    internal class BookRepository : Repository<Book>, IBookRepository
     {
-        public BooksRepository(SqlDbContext context) : base(context)
+        public BookRepository(SqlDbContext context) : base(context)
         {
         }
 
-        public async Task<Books?> GetByTitleAsync(string title)
+        public async Task<Book?> GetByTitleAsync(string title)
         {
             if (string.IsNullOrEmpty(title))
                 throw new ArgumentException("O título não pode ser nulo ou vazio.", nameof(title));

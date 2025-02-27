@@ -2,8 +2,8 @@
 
 namespace Domain.Interfaces
 {
-    public interface IBookRepository: IRepository<Books>
+    public interface IBookRepository: IRepository<Book>
     {
-        Task<Books?> GetByTitleAsync(string title);
+        Task<Book?> GetByTitleAsync(string title);
     }
 }

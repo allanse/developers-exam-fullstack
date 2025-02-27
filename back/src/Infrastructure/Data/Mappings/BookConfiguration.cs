@@ -1,14 +1,15 @@
 using Domain.Entities;
+using Infrastructure.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configurations
 {
-    public class BooksConfiguration : IEntityTypeConfiguration<Books>
+    public class BookConfiguration : IEntityTypeConfiguration<Book>
     {
-        public void Configure(EntityTypeBuilder<Books> builder)
+        public void Configure(EntityTypeBuilder<Book> builder)
         {
-            builder.ToTable("Book");
+            builder.ToTable("Books");
 
             builder.HasKey(b => b.Id);
 
@@ -21,12 +22,7 @@ namespace Infrastructure.Data.Configurations
                    .HasMaxLength(100);
 
             builder.Property(b => b.Description)
-                   .HasMaxLength(1024);
-
-            builder.Property(b => b.CreatedDate)
-                   .IsRequired();
-
-            builder.Property(b => b.LastUpdatedDate);
+                   .HasMaxLength(1024);            
 
             builder.Ignore(p => p.ClassLevelCascadeMode);
 

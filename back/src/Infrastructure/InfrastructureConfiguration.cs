@@ -24,11 +24,11 @@ public static class InfrastructureConfiguration
         
         services.AddScoped<IDomainEventHandler, DomainEventHandler>();
 
-        //services.AddScoped<SqlDbContext>();
+        services.AddScoped<SqlDbContext>();
 
-        services.AddScoped<IRepository<Books>, Repository<Books>>();
-        services.AddScoped<BooksService, BooksService>();
-        services.AddScoped<IBookRepository, BooksRepository>();
+        services.AddScoped<IRepository<Book>, Repository<Book>>();
+        services.AddScoped<BookService, BookService>();
+        services.AddScoped<IBookRepository, BookRepository>();
 
         return services;
     }

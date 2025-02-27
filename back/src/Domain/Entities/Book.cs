@@ -2,9 +2,9 @@
 
 namespace Domain.Entities
 {
-    public class Books : Entity<Books>
+    public class Book : Entity<Book>
     { 
-        public Books(string title, string author, string description)
+        public Book(string title, string author, string description)
         {
             Title = title;
             Author = author;
@@ -15,9 +15,24 @@ namespace Domain.Entities
         public string Author { get; private set; }
         public string Description { get; private set; }
 
+        public void SetTitle(string title)
+        {
+            Title = title;
+        }
+
+        public void SetAuthor(string author)
+        {
+            Author = author;
+        }
+
+        public void SetDescription(string description)
+        {
+            Description = description;
+        }
+
         public override bool IsValid()
         {
-            var validator = new InlineValidator<Books>();
+            var validator = new InlineValidator<Book>();
             validator.RuleFor(book => book.Title)
                      .NotEmpty().WithMessage("O título é obrigatório.")
                      .Length(10, 100).WithMessage("O título deve ter entre 10 e 100 caracteres.");
