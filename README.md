@@ -55,9 +55,16 @@ Para o envio de e-mail, implemente apenas a chamada do evento responsável pela 
 
 Como parte da avaliação, forneça seu entendimento sobre cada camada do projeto:
 1. Qual o papel da camada Domain?
+	Centralizar as regras de negócio e abstrações da aplicação;
+	
 2. Qual o papel da camada Infrastructure?
+	Centralizar as integrações com serviços externos e também as configurações e injeções de denpencias.
+	
 3. Qual o papel da camada WebApp?
+	Ela tem o papel de expor a API para disponibilizar interações com os usuários ou servindo de ponte junto ao fronend da aplicação.
+	
 4. Aponte um ponto de melhoria que considere relevante no projeto.
+	Seria interessante adicionar um ou mais testes unitários para validar essas habilidades do candidato.
 
 ### Regras
 

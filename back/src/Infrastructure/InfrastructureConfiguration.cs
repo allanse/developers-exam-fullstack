@@ -1,6 +1,9 @@
 using System.Reflection;
+using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Services;
 using Infrastructure.Data;
+using Infrastructure.Data.Repositories;
 using Infrastructure.Events;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +24,11 @@ public static class InfrastructureConfiguration
         
         services.AddScoped<IDomainEventHandler, DomainEventHandler>();
 
-        services.AddScoped<SqlDbContext>();
+        //services.AddScoped<SqlDbContext>();
+
+        services.AddScoped<IRepository<Books>, Repository<Books>>();
+        services.AddScoped<BooksService, BooksService>();
+        services.AddScoped<IBookRepository, BooksRepository>();
 
         return services;
     }

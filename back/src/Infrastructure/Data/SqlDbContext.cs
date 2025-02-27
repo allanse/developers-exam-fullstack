@@ -1,5 +1,7 @@
 using System.Reflection;
+using Domain.Events;
 using Domain.Interfaces;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,7 +14,7 @@ public class SqlDbContext : DbContext
     public SqlDbContext(DbContextOptions<SqlDbContext> options, IDomainEventHandler domainEventService) : base(options)
         => _domainEventService = domainEventService;
 
-    public SqlDbContext(DbContextOptions<SqlDbContext> option) : base(option) { }
+    //public SqlDbContext(DbContextOptions<SqlDbContext> option) : base(option) { }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -26,6 +28,10 @@ public class SqlDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        modelBuilder.Ignore<ValidationFailure>();
+        modelBuilder.Ignore<DomainEvent>();
+        modelBuilder.Ignore<ValidationResult>();        
 
         var dateTimeConverter = new ValueConverter<DateTime, DateTime>(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
 
